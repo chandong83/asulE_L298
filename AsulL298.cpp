@@ -84,19 +84,19 @@ void AsulL298::stopMotor(){
   digitalWrite(IN4, HIGH);  
 }
 
-
+//개별 축 모터 제어 전진 (ch 채널, speed 속도)
 void AsulL298::go(uint8_t ch, uint8_t speed){
    if(ch == CH1)
    {
       digitalWrite(IN1, HIGH);
       digitalWrite(IN2, LOW);
-      analogWrite(ENA, speed);
+      setMotorSpeed(ch, speed);  
    }
    else if(ch == CH2)
    {
       digitalWrite(IN3, HIGH);
       digitalWrite(IN4, LOW);
-      analogWrite(ENB, speed);
+      setMotorSpeed(ch, speed);  
    }
    else
    {    
@@ -104,23 +104,24 @@ void AsulL298::go(uint8_t ch, uint8_t speed){
       digitalWrite(IN2, LOW);
       digitalWrite(IN3, HIGH);
       digitalWrite(IN4, LOW);
-      analogWrite(ENA, speed);
-      analogWrite(ENB, speed);
+      setMotorSpeed(ALL_CH, speed);
    }
 }
 
+//개별 축 모터 제어 후진(ch 채널, speed 속도)
 void AsulL298::back(uint8_t ch, uint8_t speed){
+  
    if(ch == CH1)
    {
      digitalWrite(IN1, LOW);
      digitalWrite(IN2, HIGH);   
-      analogWrite(ENA, speed);   
+     setMotorSpeed(ch, speed);
    }
    else if(ch == CH2)
    {
       digitalWrite(IN3, LOW);
       digitalWrite(IN4, HIGH);  
-      analogWrite(ENB, speed);     
+      setMotorSpeed(ch, speed);     
    }
    else
    {    
@@ -128,9 +129,9 @@ void AsulL298::back(uint8_t ch, uint8_t speed){
       digitalWrite(IN2, HIGH);
       digitalWrite(IN3, LOW);
       digitalWrite(IN4, HIGH); 
-      analogWrite(ENA, speed);   
-      analogWrite(ENB, speed);  
+      setMotorSpeed(ALL_CH, speed);
    }
+   
 }
 
 /*
@@ -216,5 +217,4 @@ String AsulL298::getVersion()
 {
   return Version;
 }
-
 
